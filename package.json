@@ -15,7 +15,12 @@
     "unused",
     "cleanup",
     "nodejs",
-    "package-manager"
+    "package-manager",
+    "node-tidy",
+    "tidy",
+    "cleanups",
+    "dep-cleanup",
+    "deps-clean"
   ],
   "author": "Ali Jabbar",
   "license": "MIT",
