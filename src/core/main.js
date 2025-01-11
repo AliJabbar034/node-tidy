@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const fs = require("fs");
 const execCommand = require("../utils/execCommand");
 const askUser = require("../utils/askUser");
