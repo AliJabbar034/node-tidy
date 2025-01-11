@@ -9,7 +9,13 @@ function findUnusedPackages() {
 
   return new Promise((resolve, reject) => {
     depcheck(process.cwd(), options, (unused) => {
-      resolve(unused.dependencies || []);
+      const unusedDependencies = unused.dependencies || [];
+      const unusedDevDependencies = unused.devDependencies || [];
+
+      resolve({
+        dependencies: unusedDependencies,
+        devDependencies: unusedDevDependencies,
+      });
     });
   });
 }
