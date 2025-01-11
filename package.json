@@ -1,0 +1,37 @@
+{
+  "name": "node-tidy",
+  "version": "1.0.1",
+  "description": "A CLI tool to find and remove unused NPM packages in your Node.js projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "bin": {
+    "node-tidy": "./index.js"
+  },
+  "keywords": [
+    "npm",
+    "dependencies",
+    "unused",
+    "cleanup",
+    "nodejs",
+    "package-manager"
+  ],
+  "author": "Ali Jabbar",
+  "license": "MIT",
+  "dependencies": {
+    "depcheck": "^1.4.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "sinon": "^19.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AliJabbar034/node-tidy.git"
+  },
+  "homepage": "https://github.com/AliJabbar034/node-tidy",
+  "bugs": {
+    "url": "https://github.com/AliJabbar034/node-tidy/issues"
+  }
+}
