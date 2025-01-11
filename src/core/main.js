@@ -6,7 +6,7 @@ const findUnusedPackages = require("../utils/findUnusedPackages");
 const getDependencies = require("../utils/getDependencies");
 
 // Handle the removal of unused packages
-async function handlePackageRemoval(unusedPackages) {
+async function handlePackageRemoval(unusedPackages, packageJson) {
   if (unusedPackages.length === 0) {
     console.log("No unused packages found. You're all set!");
     return;
@@ -21,7 +21,7 @@ async function handlePackageRemoval(unusedPackages) {
 
   if (answer === "yes" || answer === "y") {
     await removePackages(unusedPackages);
-    await handleRollback();
+    await handleRollback(packageJson);
   } else {
     console.log("No packages were removed.");
   }
@@ -37,13 +37,13 @@ function removePackages(unusedPackages) {
 }
 
 // Handle the rollback process if needed
-async function handleRollback() {
+async function handleRollback(packageJson) {
   const rollbackAnswer = await askUser(
     "Do you want to rollback the changes? (yes/no): "
   );
 
   if (rollbackAnswer === "yes" || rollbackAnswer === "y") {
-    const { packageJson } = getDependencies();
+    // const { packageJson } = getDependencies();
     const backupPackageJson = JSON.stringify(packageJson, null, 2);
     fs.writeFileSync("package.json", backupPackageJson);
     console.log("package.json restored to its original state.");
@@ -57,7 +57,7 @@ async function main() {
   const { packageJson } = getDependencies();
   const unusedPackages = await findUnusedPackages();
 
-  await handlePackageRemoval(unusedPackages);
+  await handlePackageRemoval(unusedPackages, packageJson);
 }
 
 module.exports = main;
