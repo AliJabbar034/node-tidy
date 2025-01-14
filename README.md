@@ -38,6 +38,34 @@ node-tidy
 
 ---
 
+```
+❯ node-tidy
+Checking for unused packages. This may take a while...
+Unused packages found:
+Dependencies:
+- mongoose
+Do you want to remove these unused packages? (yes/no): y
+Removing mongoose...
+Unused packages removed successfully.
+Do you want to rollback the changes? (yes/no): n
+Changes retained.
+Scanning for missing packages...
+
+Missing packages detected:
+- express
+- dotenv
+- morgan
+
+Do you want to install these missing packages? (yes/no): y
+Installing express...
+Installing dotenv...
+Installing morgan...
+Missing packages installed successfully.
+
+```
+
+---
+
 ## 😊 Why Use Node-Tidy?
 
 - **Save Disk Space**: By removing unnecessary packages, you free up space in your project and on your disk, ensuring you're only keeping what's necessary.
