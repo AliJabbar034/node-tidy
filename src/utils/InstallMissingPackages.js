@@ -10,7 +10,7 @@ function findMissingPackages() {
 
   const usedPackages = new Set();
   const importRegex =
-    /(?:import\s.*?from\s['"]|require\(['"])([^'"]+)(?:['"]\))/g;
+    /(?:import\s+(?:[\w*\s{},]+from\s+)?|import\s+['"]|require\(['"])([^'"]+)(?:['"]\))/g;
 
   for (const file of files) {
     const content = fs.readFileSync(file, "utf8");

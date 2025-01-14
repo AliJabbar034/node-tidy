@@ -74,4 +74,4 @@ Missing packages installed successfully.
 - **Easier Dependency Management**: Keeping your dependencies up-to-date and removing unused ones reduces the complexity of managing package versions and conflicts.
 - **Quick and Interactive**: Node-Tidy offers an easy-to-use interactive prompt, making the process of identifying and removing unused dependencies simple and painless.
 - **Rollback Changes**: Made a mistake? No worries. Node-Tidy lets you rollback the removal process, restoring your project to its previous state.
-  -- **Find Missing Dependencies and Install Them** : Missing dependencies but don't which and getting error but don't worry Node-Tidy got you covered.It will find all dependencies and install them so that you don't have to worry about them and run Project error free
+- **Find Missing Dependencies and Install Them** : `Missing dependencies` but don't which and getting error but don't worry Node-Tidy got you covered.It will find all dependencies and install them so that you don't have to worry about them and run Project error free
