@@ -7,7 +7,7 @@ const getDependencies = require("../utils/getDependencies");
 const findMissingPackages = require("../utils/InstallMissingPackages");
 
 // Handle the removal of unused packages
-async function handlePackageRemoval(unusedPackages) {
+async function handlePackageRemoval(unusedPackages, packageJson) {
   const { dependencies, devDependencies } = unusedPackages;
 
   if (dependencies.length === 0 && devDependencies.length === 0) {
@@ -33,6 +33,7 @@ async function handlePackageRemoval(unusedPackages) {
 
   if (answer === "yes" || answer === "y") {
     await removePackages(dependencies, devDependencies);
+    await handleRollback(packageJson);
   } else {
     console.log("No packages were removed.");
   }
@@ -93,8 +94,8 @@ async function main() {
   const { packageJson } = getDependencies();
   const unusedPackages = await findUnusedPackages();
 
-  await handlePackageRemoval(unusedPackages);
-  await handleRollback(packageJson);
+  await handlePackageRemoval(unusedPackages, packageJson);
+
   await installMissingPackages();
 }
 
