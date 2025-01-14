@@ -1,6 +1,6 @@
 {
   "name": "node-tidy",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "A CLI tool to find and remove unused NPM packages and Install Missing packages in your Node.js projects.",
   "main": "index.js",
   "scripts": {
