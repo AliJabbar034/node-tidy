@@ -1,6 +1,6 @@
 # Node-Tidy
 
-**Node-Tidy** is a CLI tool designed to identify and remove unused dependencies in your Node.js projects. It simplifies package management and ensures your `node_modules` directory and `package.json` stay clean and efficient.
+**Node-Tidy** is a CLI tool designed to identify and remove unused dependencies and Missing Dependencies required in your Node.js projects. It simplifies package management and ensures your `node_modules` directory and `package.json` stay clean and efficient run your `code` on Production Error Free 😊
 
 ---
 
@@ -10,6 +10,7 @@
 - Provides an interactive option to remove unused packages.
 - Keeps your project lightweight and efficient.
 - Rollback option to restore changes if needed.
+- Find `Missing Dependencies` and Install them
 
 ---
 
@@ -45,7 +46,4 @@ node-tidy
 - **Easier Dependency Management**: Keeping your dependencies up-to-date and removing unused ones reduces the complexity of managing package versions and conflicts.
 - **Quick and Interactive**: Node-Tidy offers an easy-to-use interactive prompt, making the process of identifying and removing unused dependencies simple and painless.
 - **Rollback Changes**: Made a mistake? No worries. Node-Tidy lets you rollback the removal process, restoring your project to its previous state.
-
-```
-
-```
+  -- **Find Missing Dependencies and Install Them** : Missing dependencies but don't which and getting error but don't worry Node-Tidy got you covered.It will find all dependencies and install them so that you don't have to worry about them and run Project error free

@@ -1,7 +1,7 @@
 {
   "name": "node-tidy",
   "version": "1.0.10",
-  "description": "A CLI tool to find and remove unused NPM packages in your Node.js projects.",
+  "description": "A CLI tool to find and remove unused NPM packages and Install Missing packages in your Node.js projects.",
   "main": "index.js",
   "scripts": {
     "test": "npx jest"
@@ -20,7 +20,10 @@
     "tidy",
     "cleanups",
     "dep-cleanup",
-    "deps-clean"
+    "deps-clean",
+    "missing-packages",
+    "Install-missing-packages",
+    "node"
   ],
   "author": "Ali Jabbar",
   "license": "MIT",
