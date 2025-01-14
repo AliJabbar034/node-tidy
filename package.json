@@ -25,9 +25,9 @@
   "author": "Ali Jabbar",
   "license": "MIT",
   "dependencies": {
-    "depcheck": "^1.4.7"
+    "depcheck": "^1.4.7",
+    "glob": "^11.0.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/AliJabbar034/node-tidy.git"

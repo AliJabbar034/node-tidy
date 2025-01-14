@@ -4,9 +4,10 @@ const execCommand = require("../utils/execCommand");
 const askUser = require("../utils/askUser");
 const findUnusedPackages = require("../utils/findUnusedPackages");
 const getDependencies = require("../utils/getDependencies");
+const findMissingPackages = require("../utils/InstallMissingPackages");
 
 // Handle the removal of unused packages
-async function handlePackageRemoval(unusedPackages, packageJson) {
+async function handlePackageRemoval(unusedPackages) {
   const { dependencies, devDependencies } = unusedPackages;
 
   if (dependencies.length === 0 && devDependencies.length === 0) {
@@ -32,7 +33,6 @@ async function handlePackageRemoval(unusedPackages, packageJson) {
 
   if (answer === "yes" || answer === "y") {
     await removePackages(dependencies, devDependencies);
-    await handleRollback(packageJson);
   } else {
     console.log("No packages were removed.");
   }
@@ -58,17 +58,44 @@ async function handleRollback(packageJson) {
     const backupPackageJson = JSON.stringify(packageJson, null, 2);
     fs.writeFileSync("package.json", backupPackageJson);
     console.log("package.json restored to its original state.");
+    console.log("....Installing Removed Package.....");
     execCommand("npm install");
   } else {
     console.log("Changes retained.");
   }
 }
 
+const installMissingPackages = async () => {
+  // Show missing packages
+  const missingPackages = await findMissingPackages();
+  if (missingPackages.length > 0) {
+    console.log("\nMissing packages detected:");
+    missingPackages.forEach((pkg) => console.log(`- ${pkg}`));
+
+    const answer = await askUser(
+      "\nDo you want to install these missing packages? (yes/no): "
+    );
+
+    if (answer === "yes" || answer === "y") {
+      missingPackages.forEach((pkg) => {
+        console.log(`Installing ${pkg}...`);
+        execCommand(`npm install ${pkg}`);
+      });
+
+      console.log("Missing packages installed successfully.");
+    }
+  } else {
+    console.log("\nNo missing packages detected.");
+  }
+};
+
 async function main() {
   const { packageJson } = getDependencies();
   const unusedPackages = await findUnusedPackages();
 
-  await handlePackageRemoval(unusedPackages, packageJson);
+  await handlePackageRemoval(unusedPackages);
+  await handleRollback(packageJson);
+  await installMissingPackages();
 }
 
 module.exports = main;
