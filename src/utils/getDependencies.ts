@@ -1,6 +1,7 @@
-const fs = require("fs");
+import fs from "fs";
+import { Dependencies } from "../types/types";
 
-function getDependencies() {
+function getDependencies(): Dependencies {
   const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
   return {
     dependencies: Object.keys(packageJson.dependencies || {}),
@@ -9,4 +10,4 @@ function getDependencies() {
   };
 }
 
-module.exports = getDependencies;
+export default getDependencies;

@@ -1,15 +1,18 @@
 #!/usr/bin/env node
-const fs = require("fs");
-const execCommand = require("../utils/execCommand");
-const askUser = require("../utils/askUser");
-const findUnusedPackages = require("../utils/findUnusedPackages");
-const getDependencies = require("../utils/getDependencies");
-const findMissingPackages = require("../utils/InstallMissingPackages");
+import fs from "fs";
+import execCommand from "../utils/execCommand";
+import askUser from "../utils/askUser";
+import findUnusedPackages from "../utils/findUnusedPackages";
+import getDependencies from "../utils/getDependencies";
+import findMissingPackages from "../utils/InstallMissingPackages";
+import { Dependencies, UnusedPackages } from "../types/types";
 
 // Handle the removal of unused packages
-async function handlePackageRemoval(unusedPackages, packageJson) {
-  const { dependencies, devDependencies } = unusedPackages;
-
+async function handlePackageRemoval({
+  dependencies,
+  devDependencies,
+  packageJson,
+}: Dependencies) {
   if (dependencies.length === 0 && devDependencies.length === 0) {
     console.log("No unused packages found. You're all set!");
     return;
@@ -19,12 +22,12 @@ async function handlePackageRemoval(unusedPackages, packageJson) {
 
   if (dependencies.length > 0) {
     console.log("Dependencies:");
-    dependencies.forEach((pkg) => console.log(`- ${pkg}`));
+    dependencies.forEach((pkg: string) => console.log(`- ${pkg}`));
   }
 
   if (devDependencies.length > 0) {
     console.log("DevDependencies:");
-    devDependencies.forEach((pkg) => console.log(`- ${pkg}`));
+    devDependencies.forEach((pkg: string) => console.log(`- ${pkg}`));
   }
 
   const answer = await askUser(
@@ -32,7 +35,7 @@ async function handlePackageRemoval(unusedPackages, packageJson) {
   );
 
   if (answer === "yes" || answer === "y") {
-    await removePackages(dependencies, devDependencies);
+    await removePackages({ dependencies, devDependencies });
     await handleRollback(packageJson);
   } else {
     console.log("No packages were removed.");
@@ -40,7 +43,7 @@ async function handlePackageRemoval(unusedPackages, packageJson) {
 }
 
 // Remove unused packages
-function removePackages(dependencies, devDependencies) {
+function removePackages({ dependencies, devDependencies }: UnusedPackages) {
   [...dependencies, ...devDependencies].forEach((pkg) => {
     console.log(`Removing ${pkg}...`);
     execCommand(`npm uninstall ${pkg}`);
@@ -49,7 +52,7 @@ function removePackages(dependencies, devDependencies) {
 }
 
 // Handle the rollback process if needed
-async function handleRollback(packageJson) {
+async function handleRollback(packageJson: Record<string, string>) {
   const rollbackAnswer = await askUser(
     "Do you want to rollback the changes? (yes/no): "
   );
@@ -91,12 +94,16 @@ const installMissingPackages = async () => {
 };
 
 async function main() {
-  const { packageJson } = getDependencies();
-  const unusedPackages = await findUnusedPackages();
+  const packageJson: Dependencies = getDependencies();
+  const unusedPackages: UnusedPackages = await findUnusedPackages();
 
-  await handlePackageRemoval(unusedPackages, packageJson);
+  await handlePackageRemoval({
+    dependencies: unusedPackages.dependencies,
+    devDependencies: unusedPackages.devDependencies,
+    packageJson: packageJson.packageJson,
+  });
 
   await installMissingPackages();
 }
 
-module.exports = main;
+export default main;

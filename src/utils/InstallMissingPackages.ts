@@ -1,15 +1,15 @@
-const fs = require("fs");
-const glob = require("glob");
-const getDependencies = require("./getDependencies");
+import fs from "fs";
+import { globSync } from "glob";
+import getDependencies from "./getDependencies";
 
-function findMissingPackages() {
+async function findMissingPackages(): Promise<string[]> {
   console.log("Scanning for missing packages...");
 
-  const files = glob.sync("**/*.{js,jsx,ts,tsx}", {
+  const files = globSync("**/*.{js,jsx,ts,tsx}", {
     ignore: ["node_modules/**", "dist/**"],
   });
 
-  const usedPackages = new Set();
+  const usedPackages = new Set<string>();
   const importRegex =
     /\b(?:import(?:["'\s]*[\w*{}\n, ]+from\s*)?["']([^"']+)["']|require\(["']([^"']+)["']\))/g;
 
@@ -30,11 +30,11 @@ function findMissingPackages() {
   ]);
 
   // Find packages used in code but not installed
-  const missingPackages = Array.from(usedPackages).filter(
+  const missingPackages: string[] = Array.from(usedPackages).filter(
     (pkg) => !installedPackages.has(pkg)
   );
 
   return missingPackages;
 }
 
-module.exports = findMissingPackages;
+export default findMissingPackages;

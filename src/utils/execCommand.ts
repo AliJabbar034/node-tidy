@@ -1,12 +1,12 @@
-const { execSync } = require("child_process");
+import { execSync } from "child_process";
 
-function execCommand(command) {
+function execCommand(command: string): string | null {
   try {
     return execSync(command, { encoding: "utf8" }).trim();
-  } catch (err) {
+  } catch (err: any) {
     console.error(`Error executing command: ${command}`, err.message);
     return null;
   }
 }
 
-module.exports = execCommand;
+export default execCommand;

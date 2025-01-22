@@ -1,6 +1,6 @@
-const readline = require("readline");
+import readline from "readline";
 
-function askUser(question) {
+function askUser(question: string): Promise<string> {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -14,4 +14,4 @@ function askUser(question) {
   });
 }
 
-module.exports = askUser;
+export default askUser;
