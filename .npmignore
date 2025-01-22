@@ -4,3 +4,5 @@ tsconfig.json
 tsconfig.cjs.json
 tsconfig.esm.json
 node_modules/
+.github
+.github/
