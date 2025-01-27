@@ -26,7 +26,7 @@
     "build": "npm run build:cjs && npm run build:esm"
   },
   "bin": {
-    "node-tidy": "./dist/bin/index.js"
+    "node-tidy": "dist/bin/index.js"
   },
   "keywords": [
     "npm",
@@ -52,7 +52,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AliJabbar034/node-tidy.git"
+    "url": "git+https://github.com/AliJabbar034/node-tidy.git"
   },
   "homepage": "https://github.com/AliJabbar034/node-tidy",
   "bugs": {
