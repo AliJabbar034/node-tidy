@@ -1,6 +1,7 @@
 import fs from "fs";
 import { globSync } from "glob";
 import getDependencies from "./getDependencies";
+import { builtinModules } from "module";
 
 async function findMissingPackages(): Promise<string[]> {
   console.log("Scanning for missing packages...");
@@ -29,9 +30,11 @@ async function findMissingPackages(): Promise<string[]> {
     ...getDependencies().devDependencies,
   ]);
 
+  const nodeBuiltinModules = new Set(builtinModules);
+
   // Find packages used in code but not installed
   const missingPackages: string[] = Array.from(usedPackages).filter(
-    (pkg) => !installedPackages.has(pkg)
+    (pkg) => !installedPackages.has(pkg) && !nodeBuiltinModules.has(pkg)
   );
 
   return missingPackages;
